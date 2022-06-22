@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h2>HTML Image</h2>
+
+    <img src="https://random-dalle-images.s3.amazonaws.com/50646040.png", id="image">
+
+    <br>
+    <button onclick="get_and_show_random_image()">Next image</button>
+
+    <script>
+        function change_image(image_url){
+            document.getElementById("image").src = image_url;
+        }
+
+        function get_and_show_random_image(){
+            URL = 'https://8ql73rfkz0.execute-api.us-east-1.amazonaws.com/default/get_random_dalle_image'
+            fetch(URL)
+                .then(response => response.json())
+                .then(data => change_image(data.image))
+        }
+        
+        function keep_changing_images_and_setting_timeouts(){
+            get_and_show_random_image();
+            setTimeout(keep_changing_images_and_setting_timeouts, 8000);
+        }
+        keep_changing_images_and_setting_timeouts();
+    </script>
+</body>
+
+</html>
