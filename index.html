@@ -6,6 +6,7 @@
     <h2>Dall-e art </h2>
 
     <img src="https://random-dalle-images.s3.amazonaws.com/50646040.png", id="image">
+    <p id="prompt">Subtext here!</p>
 
     <br>
     <button onclick="get_and_show_random_image()">Next image</button>
@@ -29,15 +30,18 @@
         It is me, Roland!
     </div>
     <script>
-        function change_image(image_url){
+        function change_image(image_url, prompt){
             document.getElementById("image").src = image_url;
+            document.getElementById("prompt").innerHTML = prompt;
+
         }
 
         function get_and_show_random_image(){
             URL = 'https://8ql73rfkz0.execute-api.us-east-1.amazonaws.com/default/get_random_dalle_image'
             fetch(URL)
                 .then(response => response.json())
-                .then(data => change_image(data.image))
+                .then(data => change_image(data.image, data.prompt))
+    
         }
         
         function keep_changing_images_and_setting_timeouts(){
